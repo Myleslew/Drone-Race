@@ -1,12 +1,84 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import Commands from './commands';
+import EEG from './eeg';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+class App extends React.Component { 
+    constructor(props) {
+        super(props)
+        this.state = {headset: null, controller: null}
+    }
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+    componentDidMount = () => {
+        this.setState({ headset: false, controller: false})
+    }
+
+    setController = () => {
+        this.setState({ headset: false, controller: true})
+    }
+
+    setEEG = () => {
+        this.setState({ headset: true, controller: false})
+    }
+
+    homeScreen = () => {
+        this.setState({headset: false, controller: false})
+    }
+
+    renderContent() {
+        if(!this.state.headset && !this.state.controller){
+            return (
+                <div>
+                    <button className="massive ui negative icon button" onClick= {this.setController}>
+                        <i className="gamepad icon"></i>
+                    </button>
+                    <button className="massive positive ui icon button" onClick= {this.setEEG}>
+                        <i className="headphones icon"></i>
+                    </button>
+                 </div>
+            )
+        }
+
+        if(!this.state.headset && this.state.controller){
+            return (
+                <div>
+                    <Commands />
+                    <div className= "ui two bottom attached buttons">
+                        <button className="positive ui button" onClick= {this.homeScreen}>
+                            <i className="large home icon"></i>
+                        </button>
+                    </div>  
+                </div>
+                
+            )
+        }
+
+        if(this.state.headset && !this.state.controller){
+            return (
+                <div>
+                   <EEG /> 
+                   <div className= "ui two bottom attached buttons">
+                        <button className="positive ui button" onClick= {this.homeScreen}>Home Screen!</button>
+                    </div>  
+                </div>
+                
+            )
+        }
+    }
+        
+    render() {
+        
+           return (
+            <div className= "border white">
+                {this.renderContent()}
+            </div>
+            ) 
+
+        
+    }
+}
+
+ReactDOM.render (
+    <App />,
+    document.querySelector('#root')
+)
