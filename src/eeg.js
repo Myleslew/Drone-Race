@@ -1,6 +1,6 @@
 import React from 'react'
 import socket from './socket'
-import { BCIDevice } from 'bci-device'
+import { BCIDevice } from './BCIDevice'
 
 const SECONDS = 0.25;
 const BUFFER_SIZE = SECONDS * 256;
@@ -93,3 +93,4 @@ const EEG = () => (
 )
 
 export default EEG;
+
