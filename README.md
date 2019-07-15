@@ -121,11 +121,13 @@ npx create-react-app <name of app>
 + When building the react app for a controller that allows manual input ['takeoff', 'land', 'directional movement' and an 'emergency' button] from the user that is sent to the drone, here are some helpful resources:
 	+ Installing necessary libraries and general demonstartion of how the program should work [Part 1](https://www.youtube.com/watch?v=JzFvGf7Ywkk) & [Part 2](https://www.youtube.com/watch?v=ozMwRq-IT2w)
 	+  This library will create websockets which will allow between to servers [front end and back end] to communicate between each other and relay information
-<pre><code>
+
+	```
 	npm install socket.io
 	npm install express
 	npm install dgram
-</code>
+	```
+
 
 **React JSX file giving error “Cannot read property 'createElement' of undefined”**
 
@@ -140,10 +142,11 @@ npx create-react-app <name of app>
 	import React from 'react';
 	import {useEffect, useState} from 'react';
 	```
-##Helpful Diagram #3
+## Helpful Diagram #3
 ![controller-map](/Users/Myles/Desktop/images/controller-map.jpeg)
 This image displays a visual representation of how the information is being sent from the user to a web-browser then to the backend-browser (which communicates to the robot).  This is done using web-sockets or the socket.io library. Here is some code that allows the back end webscoket to work:
-<pre><code>
+
+```
 	const app = require('express')()
 	const server = require('http').createServer(app)
 	const io = require('socket.io')(server)
@@ -151,4 +154,4 @@ This image displays a visual representation of how the information is being sent
 	server.listen('6767', () => {
     console.log('up and running...')
 })
-</code>
+```
