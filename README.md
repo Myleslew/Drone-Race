@@ -1,5 +1,5 @@
-#Drone Racing 
-##(Start up)
+# Drone Racing 
+## (Start up)
 ```
 npm install
 ```
@@ -32,7 +32,7 @@ npm run electron
 ```
 
 
-##(Potential Changes)
+## (Potential Changes)
 
 ```
 const frequency
