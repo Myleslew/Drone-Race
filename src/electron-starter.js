@@ -1,29 +1,27 @@
 const electron = require('electron');
 const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
+const MainWindow = require('./mainwindow')
 const Menu = electron.Menu
+const DroneTray = require('./TimerTray')
 const path = require('path');
-const url = require('url');
 
-let mainWindow;
+
+let mainwindow
+let tray
 
 function createWindow() {
-    mainWindow = new BrowserWindow({
-        width: 800, 
-        height: 600, 
-        webPreferences: { nodeIntegration: true }
-        });
-
-    mainWindow.loadURL('http://localhost:3000');
-    mainWindow.webContents.openDevTools();
-    mainWindow.on('closed', function() {
-        app.quit()
-    })
+    app.dock.hide()
+    mainwindow = new MainWindow('http://localhost:3000');
+    const iconName = process.platform === 'win32' ? 'windows-icon.png' : 'iconTemplate.png';
+    const iconPath = path.join(__dirname, `../pics/${iconName}`)
+    tray = new DroneTray(iconPath, mainwindow)
     const mainMenu = Menu.buildFromTemplate(menuTemplate)
     Menu.setApplicationMenu(mainMenu)
-}
 
-app.on('ready', createWindow);
+    
+
+    
+}
 
 menuTemplate = [
     {
@@ -40,3 +38,5 @@ menuTemplate = [
         
     }
 ]
+
+app.on('ready', createWindow);
